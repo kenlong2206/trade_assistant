@@ -67,9 +67,11 @@ jobs:
         projectBaseDir: . # Adjust this if your project is in a subdirectory
         args: >
           -Dsonar.host.url=https://sonarcloud.io 
+          -Dsonar.login=$SONAR_TOKEN
           -Dsonar.python.xunit.reportPath=reports/xunit-result.xml
           -Dsonar.python.coverage.reportPaths=reports/coverage.xml
           -Dsonar.python.version=3
+          -Dsonar.branch.name=${{ github.ref_name }}
 
     - name: Upload test results
       uses: actions/upload-artifact@v2
