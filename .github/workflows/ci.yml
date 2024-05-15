@@ -55,6 +55,9 @@ jobs:
     - name: Run Pytest tests with coverage
       run: python -m pytest --cov=trade_assistant --cov-report=xml --junitxml=reports/xunit-result.xml
 
+    - name: Wait to avoid timestamp issues
+      run: sleep 10
+
     - name: SonarQube Scan
       uses: SonarSource/sonarcloud-github-action@master
       env:
