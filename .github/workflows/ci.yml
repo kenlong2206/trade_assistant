@@ -68,8 +68,6 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
         args: >
-          -Dsonar.projectKey=kenlong2206_trade_assistant
-          -Dsonar.organization=kenlong2206
           -Dsonar.host.url=https://sonarcloud.io 
           -Dsonar.login=$SONAR_TOKEN
           -Dsonar.python.xunit.reportPath=reports/xunit-result.xml
