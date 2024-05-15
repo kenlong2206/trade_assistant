@@ -45,6 +45,9 @@ jobs:
         pip install coverage
         pip install ruff
 
+    - name: Create reports directory
+      run: mkdir -p reports
+
     - name: Run tox to configure the tests
       run: tox -e py
 
@@ -59,13 +62,14 @@ jobs:
       run: sleep 10
 
     - name: SonarQube Scan
-      uses: SonarSource/sonarcloud-github-action@master
+      uses: SonarSource/sonarcloud-github-action@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
-        projectBaseDir: . # Adjust this if your project is in a subdirectory
         args: >
+          -Dsonar.projectKey=kenlong2206_trade_assistant
+          -Dsonar.organization=kenlong2206
           -Dsonar.host.url=https://sonarcloud.io 
           -Dsonar.login=$SONAR_TOKEN
           -Dsonar.python.xunit.reportPath=reports/xunit-result.xml
