@@ -54,7 +54,7 @@ jobs:
       env:
         PYTHONPATH: ./trade_assistant
       run: |
-        pytest --cov-report=xml:coverage.xml --cov=trade_assistant
+        python -m pytest --cov-report=xml:coverage.xml --cov=trade_assistant
     - name: Lint with Ruff
       run: ruff --output-format=github .
       continue-on-error: true
