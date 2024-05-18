@@ -5,26 +5,19 @@ app = FastAPI()
 
 
 class OpenPositionRequest(BaseModel):
-    assetPair: str
-    exchange: str
-    position: str
-    tradeEntry: float
-    tradeStopLoss: float
-    tradeTakeProfit: float
-    tradeSize: float
-    tradeLeverage: float
+    Exchange: str
 
 
 class OpenPositionResponse(BaseModel):
-    tradeResult: str
+    TradeResult: str
 
 
 @app.post("/exchange")
 async def exchange(data: OpenPositionRequest = Body(...)):
-    if data.exchange == "Binance":
+    if data.Exchange == "Binance":
         result = "Success"
-    elif data.exchange == "Kucoin":
+    elif data.Exchange == "Kucoin":
         result = "Invalid Exchange"
     else:
         result = "Invalid Request"
-    return OpenPositionResponse(tradeResult=result)
+    return OpenPositionResponse(TradeResult=result)
