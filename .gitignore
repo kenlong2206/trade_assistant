@@ -128,5 +128,3 @@ dmypy.json
 .pyre/
 
 
-/reports/xunit-result.xml
-/reports/coverage.xml

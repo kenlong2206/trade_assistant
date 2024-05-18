@@ -59,7 +59,7 @@ jobs:
       continue-on-error: true
 
     - name: Run Pytest tests with coverage
-      run: python -m pytest --cov=trade_assistant --cov-report=xml:reports/coverage.xml --junitxml=reports/xunit-result.xml
+      run: python -m pytest --cov=trade_assistant --cov-report=xml:reports/coverage.xml --junitxml=reports/gfg.xml
 
     - name: Wait to avoid timestamp issues
       run: sleep 10
