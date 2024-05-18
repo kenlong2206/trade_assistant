@@ -54,7 +54,7 @@ jobs:
       env:
         PYTHONPATH: ./src
       run: |
-        python -m pytest --cov=trade_assistant --cov-report=xml:reports/coverage.xml --junitxml=reports/xunit-result.xml
+        python -m pytest --cov=src --cov-report=xml:reports/coverage.xml --junitxml=reports/xunit-result.xml
 
     - name: Lint with Ruff
       run: ruff --output-format=github .
@@ -74,7 +74,7 @@ jobs:
           -Dsonar.host.url=https://sonarcloud.io 
           -Dsonar.python.version=3
           -Dsonar.branch.name=${{ github.ref_name }}
-          -Dsonar.sources=trade_assistant
+          -Dsonar.sources=src
           -Dsonar.python.xunit.reportPath=reports/xunit-result.xml
           -Dsonar.python.coverage.reportPaths=reports/coverage.xml
           -Dsonar.sources=.
