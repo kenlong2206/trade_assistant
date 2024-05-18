@@ -43,7 +43,6 @@ jobs:
         pip install pytest-asyncio
         pip install fastapi
         pip install pydantic
-        pip install tox
         pip install pytest-cov
         pip install coverage
         pip install ruff
@@ -51,8 +50,9 @@ jobs:
     - name: Create reports directory
       run: mkdir -p reports
 
-    - name: Run tox to configure the tests
-      run: tox -e py
+    - name: Run Pytest tests with coverage
+      run: |
+        pytest --cov=trade_assistant --cov-report=xml:reports/coverage.xml --junitxml=reports/xunit.xml
 
     - name: Lint with Ruff
       run: ruff --output-format=github .
@@ -79,5 +79,5 @@ jobs:
       with:
         name: test-results
         path: |
-          reports/xunit-result.xml
+          reports/xunit.xml
           reports/coverage.xml
