@@ -77,6 +77,7 @@ jobs:
           -Dsonar.sources=trade_assistant
           -Dsonar.python.xunit.reportPath=reports/xunit-result.xml
           -Dsonar.python.coverage.reportPaths=reports/coverage.xml
+          -Dsonar.sources=.
 
     - name: Upload test results
       uses: actions/upload-artifact@v4
