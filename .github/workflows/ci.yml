@@ -57,7 +57,7 @@ jobs:
       continue-on-error: true
 
     - name: Run Pytest tests with coverage
-      run: python -m pytest --cov=trade_assistant --cov-report=xml:coverage.xml --junitxml=reports/xunit-result.xml
+      run: python -m pytest --cov=trade_assistant --cov-report=xml:reports/coverage.xml --junitxml=reports/xunit-result.xml
 
     - name: Wait to avoid timestamp issues
       run: sleep 10
@@ -71,10 +71,8 @@ jobs:
         projectBaseDir: . # Adjust this if your project is in a subdirectory
         args: >
           -Dsonar.host.url=https://sonarcloud.io 
-          -Dsonar.python.xunit.reportPath=reports/xunit-result.xml
-          -Dsonar.python.coverage.reportPaths=coverage.xml
           -Dsonar.python.version=3
-          -Dsonar.sources=.          
+          -Dsonar.branch.name=${{ github.ref_name }}
 
     - name: Upload test results
       uses: actions/upload-artifact@v2
@@ -82,4 +80,4 @@ jobs:
         name: test-results
         path: |
           reports/xunit-result.xml
-          coverage.xml
+          reports/coverage.xml
