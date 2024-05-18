@@ -54,7 +54,7 @@ jobs:
       env:
         PYTHONPATH: ./trade_assistant
       run: |
-        pytest --cov-report=xml:reports/coverage.xml --junitxml=reports/xunit.xml --cov=trade_assistant
+        pytest --cov-report=xml:reports/coverage.xml --cov=trade_assistant
 
     - name: Lint with Ruff
       run: ruff --output-format=github .
@@ -77,6 +77,7 @@ jobs:
           -Dsonar.sources=trade_assistant
           -Dsonar.python.coverage.reportPaths=reports/coverage.xml
           -Dsonar.python.coverage.reportPaths=reports/xunit.xml
+          -Dsonar.sources=.
 
     - name: Upload test results
       uses: actions/upload-artifact@v4
