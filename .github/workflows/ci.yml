@@ -84,5 +84,5 @@ jobs:
       with:
         name: test-results
         path: |
-          xunit-result.xml
-          coverage.xml
+          reports/xunit-result.xml
+          reports/coverage.xml
