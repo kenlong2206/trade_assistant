@@ -82,5 +82,3 @@ jobs:
         path: |
           reports/xunit-result.xml
           reports/coverage.xml
-          
-          
