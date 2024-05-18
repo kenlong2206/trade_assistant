@@ -52,7 +52,7 @@ jobs:
 
     - name: Run Pytest tests with coverage
       env:
-        PYTHONPATH: ./trade_assistant
+        PYTHONPATH: ./src
       run: |
         python -m pytest --cov=trade_assistant --cov-report=xml:reports/coverage.xml --junitxml=reports/xunit-result.xml
 
