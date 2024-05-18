@@ -51,6 +51,8 @@ jobs:
       run: mkdir -p reports
 
     - name: Run Pytest tests with coverage
+      env:
+        PYTHONPATH: ./trade_assistant
       run: |
         pytest --cov=trade_assistant --cov-report=xml:reports/coverage.xml --junitxml=reports/xunit.xml
 
