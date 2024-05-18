@@ -76,7 +76,6 @@ jobs:
           -Dsonar.branch.name=${{ github.ref_name }}
           -Dsonar.sources=trade_assistant
           -Dsonar.python.coverage.reportPaths=reports/coverage.xml
-          -Dsonar.python.coverage.reportPaths=reports/xunit.xml
           -Dsonar.sources=.
 
     - name: Upload test results
@@ -84,5 +83,4 @@ jobs:
       with:
         name: test-results
         path: |
-          reports/xunit.xml
           reports/coverage.xml
