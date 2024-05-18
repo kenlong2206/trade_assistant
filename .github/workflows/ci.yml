@@ -54,7 +54,8 @@ jobs:
       env:
         PYTHONPATH: ./trade_assistant
       run: |
-        python -m pytest --cov-report=xml:coverage.xml --cov=trade_assistant
+        python -m pytest --cov=trade_assistant --cov-report=xml:reports/coverage.xml --junitxml=reports/xunit-result.xml
+
     - name: Lint with Ruff
       run: ruff --output-format=github .
       continue-on-error: true
@@ -74,12 +75,14 @@ jobs:
           -Dsonar.python.version=3
           -Dsonar.branch.name=${{ github.ref_name }}
           -Dsonar.sources=trade_assistant
-          -Dsonar.python.coverage.reportPaths=coverage.xml
-          -Dsonar.sources=.
+          -Dsonar.python.xunit.reportPath=reports/xunit-result.xml
+          -Dsonar.python.coverage.reportPaths=reports/coverage.xml
+          -Dsonar.sources=../
 
     - name: Upload test results
       uses: actions/upload-artifact@v4
       with:
         name: test-results
         path: |
+          xunit-result.xml
           coverage.xml
