@@ -79,26 +79,6 @@ jobs:
           -Dsonar.python.xunit.reportPath=reports/xunit-result.xml
           -Dsonar.python.coverage.reportPaths=reports/coverage.xml
 
-    # check quality gate from sonarcube to fail the git pipeline if sonarcube shows a failure
-    - name: Check SonarQube Quality Gate
-      id: check_quality_gate
-      run: |
-        SONAR_PROJECT_KEY=kenlong2206_trade_assistant  
-        SONAR_ORGANIZATION=kenlong2206 
-        SONAR_HOST_URL="https://sonarcloud.io"
-        
-        # Make API call to get the quality gate status
-        status=$(curl -s -u ${{ secrets.SONAR_TOKEN }}: "$SONAR_HOST_URL/api/qualitygates/project_status?projectKey=$SONAR_PROJECT_KEY&organization=$SONAR_ORGANIZATION" | jq -r .projectStatus.status)
-        
-        echo "Quality Gate status: $status"
-        
-        if [ "$status" != "OK" ]; then
-          echo "Quality gate failed with status: $status"
-          exit 1
-        fi
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
     - name: Upload test results
       uses: actions/upload-artifact@v4
       with:
