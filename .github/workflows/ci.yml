@@ -54,7 +54,7 @@ jobs:
       env:
         PYTHONPATH: ./src
       run: |
-        python -m pytest --cov=src --cov-report=xml:reports/coverage.xml --junitxml=reports/xunit-result.xml
+        python -m pytest --cov=src --cov-report=xml:reports/coverage.xml --cov-report=html:reports/coverage.html --junitxml=reports/xunit-result.xml
 
     - name: Lint with Ruff
       run: ruff --output-format=github .
@@ -77,6 +77,7 @@ jobs:
           -Dsonar.sources=src/
           -Dsonar.python.xunit.reportPath=reports/xunit-result.xml
           -Dsonar.python.coverage.reportPaths=reports/coverage.xml
+          -Dsonar.python.coverage.reportPaths=reports/coverage.html
 
     - name: Upload test results
       uses: actions/upload-artifact@v4
@@ -85,3 +86,4 @@ jobs:
         path: |
           reports/xunit-result.xml
           reports/coverage.xml
+          reports/coverage.html

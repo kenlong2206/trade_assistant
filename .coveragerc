@@ -1,0 +1,16 @@
+[run]
+omit =
+    */tests/*
+    */__init__.py
+
+[report]
+show_missing = true
+skip_covered = true
+
+[paths]
+source =
+    src
+    . # add this line to consider the current directory as the source directory
+
+[html]
+directory = reports/htmlcov
