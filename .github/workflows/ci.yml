@@ -1,4 +1,4 @@
-name: CI
+name: CI Pipeline
 
 run-name: ${{ github.actor }}
 
@@ -13,8 +13,7 @@ on:
     branches:
       - master
       - develop
-      - 'release/*'
-      - 'feature-*'
+      - 'release-*'
 
 jobs:
   build:
