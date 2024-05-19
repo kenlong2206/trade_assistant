@@ -11,6 +11,10 @@ app.mount("/message", messages_app)
 app.mount("/calculator", calculator_app)
 app.mount("/exchange", exchange_app)
 
-if __name__ == "__main__":
+# start function created just to make it easier to run a unit test against it (otherwise the application needs to ebe run which isnt normally part of unit testing)
+def start():
     import uvicorn
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run("src.main:app", host="127.0.0.1", port=8000)
+
+if __name__ == "__main__":
+    start()
