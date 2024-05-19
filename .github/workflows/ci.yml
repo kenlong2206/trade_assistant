@@ -55,6 +55,8 @@ jobs:
       run: |
         python -m pytest --cov=src --cov-report=xml:reports/coverage.xml --cov-report=html:reports/htmlcov --junitxml=reports/xunit-result.xml
 
+    # placeholder to add postman tests
+
     - name: Lint with Ruff
       run: ruff --output-format=github .
       continue-on-error: true
