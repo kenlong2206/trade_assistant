@@ -1,4 +1,5 @@
 [run]
+relative_files = True
 branch = True
 source = src
 omit =
@@ -8,10 +9,6 @@ omit =
 [report]
 show_missing = true
 skip_covered = false
-
-[paths]
-source =
-    src
 
 [html]
 directory = reports/htmlcov
