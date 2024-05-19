@@ -1,16 +1,17 @@
 [run]
+branch = True
+source = src
 omit =
     */tests/*
     */__init__.py
 
 [report]
 show_missing = true
-skip_covered = true
+skip_covered = false
 
 [paths]
 source =
     src
-    . # add this line to consider the current directory as the source directory
 
 [html]
 directory = reports/htmlcov

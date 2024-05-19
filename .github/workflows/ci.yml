@@ -54,7 +54,7 @@ jobs:
       env:
         PYTHONPATH: ./src
       run: |
-        python -m pytest --cov=src --cov-report=xml:reports/coverage.xml --cov-report=html:reports/coverage.html --junitxml=reports/xunit-result.xml
+        python -m pytest --cov=src --cov-report=xml:reports/coverage.xml --cov-report=html:reports/htmlcov --junitxml=reports/xunit-result.xml
 
     - name: Lint with Ruff
       run: ruff --output-format=github .
