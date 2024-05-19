@@ -77,13 +77,9 @@ jobs:
           -Dsonar.sources=src/
           -Dsonar.python.xunit.reportPath=reports/xunit-result.xml
           -Dsonar.python.coverage.reportPaths=reports/coverage.xml
-          -Dsonar.python.coverage.reportPaths=reports/htmlcov
 
     - name: Upload test results
       uses: actions/upload-artifact@v4
       with:
         name: test-results
-        path: |
-          reports/xunit-result.xml
-          reports/coverage.xml
-          reports/htmlcov
+        path: reports
