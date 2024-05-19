@@ -19,7 +19,7 @@ jobs:
   # feature branches so just do basic testing and code coverage
   feature:
     # only run if develop or feature branch
-    if: github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feature/')
+    if: github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feature*/')
     strategy:
       matrix:
         os: [ubuntu-latest]
@@ -158,7 +158,7 @@ jobs:
 
   release:
     # only run if release or master
-    if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/release/')
+    if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/release*/')
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest,windows-latest]
