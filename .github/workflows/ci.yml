@@ -15,18 +15,21 @@ on:
       - master
       - develop
       - 'release/*'
+      - 'feature-*'
 
 jobs:
   build:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        python-version: ['3.8', '3.9', '3.10']
+        python-version: ['3.8']
     runs-on: ${{ matrix.os }}
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 #fetch all branches
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -41,20 +44,25 @@ jobs:
         pip install pytest-asyncio
         pip install fastapi
         pip install pydantic
-        pip install tox
         pip install pytest-cov
         pip install coverage
         pip install ruff
 
-    - name: Run tox to configure the tests
-      run: tox -e py
+    - name: Create reports directory
+      run: mkdir -p reports
+
+    - name: Run Pytest tests with coverage
+      env:
+        PYTHONPATH: ./src
+      run: |
+        python -m pytest --cov=src --cov-report=xml:reports/coverage.xml --cov-report=html:reports/htmlcov --junitxml=reports/xunit-result.xml
 
     - name: Lint with Ruff
       run: ruff --output-format=github .
       continue-on-error: true
 
-    - name: Run Pytest tests with coverage
-      run: python -m pytest --cov=trade_assistant --cov-report=xml --junitxml=reports/xunit-result.xml
+    - name: Wait to avoid timestamp issues
+      run: sleep 10
 
     - name: SonarQube Scan
       uses: SonarSource/sonarcloud-github-action@master
@@ -65,14 +73,14 @@ jobs:
         projectBaseDir: . # Adjust this if your project is in a subdirectory
         args: >
           -Dsonar.host.url=https://sonarcloud.io 
+          -Dsonar.python.version=3
+          -Dsonar.branch.name=${{ github.ref_name }}
+          -Dsonar.sources=src/
           -Dsonar.python.xunit.reportPath=reports/xunit-result.xml
           -Dsonar.python.coverage.reportPaths=reports/coverage.xml
-          -Dsonar.python.version=3
 
     - name: Upload test results
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: test-results
-        path: |
-          reports/xunit-result.xml
-          reports/coverage.xml
+        path: reports
