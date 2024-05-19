@@ -1,5 +1,4 @@
-name: CI
-
+name: CI Pipeline
 
 run-name: ${{ github.actor }}
 
