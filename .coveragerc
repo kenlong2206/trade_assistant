@@ -5,10 +5,13 @@ source = src
 omit =
     */tests/*
     */__init__.py
-    */src/main.py
+
 [report]
 show_missing = true
 skip_covered = false
+exclude_lines =
+    if __name__ == .__main__.:
+
 
 [html]
 directory = reports/htmlcov
