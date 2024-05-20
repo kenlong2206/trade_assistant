@@ -1,0 +1,33 @@
+name: Auto-create Feature Branch
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  create-branch:
+    runs-on: ubuntu-latest
+    if: contains(github.event.label.name, 'In Progress')
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Create feature branch
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        ISSUE_NUMBER: ${{ github.event.issue.number }}
+        ISSUE_TITLE: ${{ github.event.issue.title }}
+      run: |
+        # Remove invalid characters from issue title to create a branch name
+        BRANCH_NAME="feature/issue-${ISSUE_NUMBER}-$(echo "${ISSUE_TITLE}" | tr -cd '[:alnum:]-_')"
+
+        # Create a new branch
+        git checkout -b $BRANCH_NAME
+
+        # Push the new branch to the remote repository
+        git push -u origin $BRANCH_NAME
+
+        # Add a comment to the issue
+        curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
+             -d "{\"body\": \"Feature branch [$BRANCH_NAME](https://github.com/${{ github.repository }}/tree/$BRANCH_NAME) created.\"}" \
+             "https://api.github.com/repos/${{ github.repository }}/issues/${ISSUE_NUMBER}/comments"
