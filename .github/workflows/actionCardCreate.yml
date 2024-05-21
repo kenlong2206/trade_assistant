@@ -1,3 +1,5 @@
+name: Echo Text on Issue Moved to In Progress
+
 on:
   project_card:
     types: [moved]
