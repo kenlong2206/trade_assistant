@@ -1,23 +1,26 @@
-name: Auto-create Feature Branch
+name: Auto-create Feature Branch on Project Column Change
 
 on:
-  issues:
-    types: [labeled]
+  project_card:
+    types: [moved]
 
 jobs:
   create-branch:
     runs-on: ubuntu-latest
-    if: contains(github.event.label.name, 'In Progress')
+    if: github.event.project_card.column_id == '<IN_PROGRESS_COLUMN_ID>'
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
     - name: Create feature branch
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        ISSUE_NUMBER: ${{ github.event.issue.number }}
-        ISSUE_TITLE: ${{ github.event.issue.title }}
+        GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+        ISSUE_URL: ${{ github.event.project_card.content_url }}
       run: |
+        # Extract issue number and title
+        ISSUE_NUMBER=$(curl -H "Authorization: token $TOKEN_GITHUB" $ISSUE_URL | jq .number)
+        ISSUE_TITLE=$(curl -H "Authorization: token $TOKEN_GITHUB" $ISSUE_URL | jq -r .title)
+
         # Remove invalid characters from issue title to create a branch name
         BRANCH_NAME="feature/issue-${ISSUE_NUMBER}-$(echo "${ISSUE_TITLE}" | tr -cd '[:alnum:]-_')"
 
