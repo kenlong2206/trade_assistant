@@ -1,17 +1,13 @@
-name: test
-
-run-name: ${{ github.actor }}
+name: Echo Text on Issue Creation
 
 on:
-  project_card:
-    types: [created]
+  issues:
+    types: [opened]
 
 jobs:
   echo-text:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
 
-      - name: Echo Hello World
-        run: echo "Hello, World !"
+    steps:
+      - name: Echo Issue Created
+        run: echo "A new issue has been created!"
