@@ -1,5 +1,7 @@
 name: test
 
+run-name: ${{ github.actor }}
+
 on:
   project_card:
     types: [created]
@@ -7,9 +9,9 @@ on:
 jobs:
   echo-text:
     runs-on: ubuntu-latest
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Echo Hello World
-      run: echo "Hello, World!"
+      - name: Echo Hello World
+        run: echo "Hello, World!"
