@@ -1,13 +1,18 @@
-name: Echo Text on Issue Creation
-
 on:
-  issues:
-    types: [opened]
+  project_card:
+    types: [moved]
 
 jobs:
   echo-text:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Echo Issue Created
-        run: echo "A new issue has been created!"
+      - name: Check if card moved to In Progress
+        id: check-column
+        run: |
+          if [ "${{ github.event.project_card.column_id }}" == "f75ad846" ]; then
+            echo "Moved to In Progress column" > status.txt
+          else
+            echo "Not moved to In Progress column" > status.txt
+      - name: Echo Card Status
+        run: cat status.txt
