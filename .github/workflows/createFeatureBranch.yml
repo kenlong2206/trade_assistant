@@ -1,4 +1,4 @@
-name: Auto-create Feature Branch on Project Column Change
+name: Auto-create Feature Branch
 
 on:
   project_card:
